@@ -6,16 +6,16 @@ using UnityEngine;
 using Newtonsoft.Json;
 using KMHelper;
 
-public class btScript : MonoBehaviour {
-
+public class btScript : MonoBehaviour
+{
     #region vars
 
-    public KMAudio audio;
-    public KMBombModule module;
-    public KMBombInfo info;
-    public KMSelectable[] nodeBtns;
-    public TextMesh[] nodeBtnText;
-    public TextMesh[] scrnDisplays;
+    public KMAudio Audio;
+    public KMBombModule Module;
+    public KMBombInfo Info;
+    public KMSelectable[] NodeBtns;
+    public TextMesh[] NodeBtnText;
+    public TextMesh[] ScreenDisplays;
 
     private static int _moduleIdCounter = 1;
     private int _moduleId = 0;
@@ -48,44 +48,24 @@ public class btScript : MonoBehaviour {
     #region initialization
 
     //loading
-    void Start () {
+    void Start()
+    {
         _moduleId = _moduleIdCounter++;
-        module.OnActivate += Activate;
-    }
-
-    //light off (button interactions and init displays)
-    public void Awake()
-    {
-        setTextColors(true);
-        for(int i = 0; i < 7; i++)
-        {
-            int j = i;
-            nodeBtns[i].OnInteract += delegate ()
-            {
-                nodeBtnPress(j);
-                return false;
-            };
-        }
-    }
-
-    //light on (begin allowing interactions)
-    void Activate()
-    {
         initPuzzle();
         initDisplays();
         _lightsOn = true;
         setTextColors(false);
-        module.GetComponent<KMGameInfo>().OnLightsChange += OnLightChange;
+        Module.GetComponent<KMGameInfo>().OnLightsChange += OnLightChange;
         Debug.LogFormat("[Binary Tree #{0}] Tree Structure:\n" +
-            "(Key: (Button Color, Char, Text Color), colors are Red, Green, Blue, Magenta, Cyan, Yellow, Orange, grAy, Silver, blacK.)\n" + 
-            "              ({1}, {2}, {3})\n" + 
-            "              /       \\\n" + 
-            "             /         \\\n" + 
-            "            /           \\\n" + 
-            "           /             \\\n" + 
-            "      ({4}, {5}, {6})       ({7}, {8}, {9})\n" + 
-            "      /    \\             /    \\\n" + 
-            "     /      \\           /      \\\n" + 
+            "(Key: (Button Color, Char, Text Color), colors are Red, Green, Blue, Magenta, Cyan, Yellow, Orange, grAy, Silver, blacK.)\n" +
+            "              ({1}, {2}, {3})\n" +
+            "              /       \\\n" +
+            "             /         \\\n" +
+            "            /           \\\n" +
+            "           /             \\\n" +
+            "      ({4}, {5}, {6})       ({7}, {8}, {9})\n" +
+            "      /    \\             /    \\\n" +
+            "     /      \\           /      \\\n" +
             "({10}, {11}, {12})({13}, {14}, {15}) ({16}, {17}, {18})({19}, {20}, {21})", _moduleId,
             orderColorChars[btnOrders[0]], btnChars[0], btnReverse[0] ? 'S' : 'K',
             orderColorChars[btnOrders[1]], btnChars[1], btnReverse[1] ? 'S' : 'K',
@@ -94,7 +74,16 @@ public class btScript : MonoBehaviour {
             orderColorChars[btnOrders[4]], btnChars[4], btnReverse[4] ? 'S' : 'K',
             orderColorChars[btnOrders[5]], btnChars[5], btnReverse[5] ? 'S' : 'K',
             orderColorChars[btnOrders[6]], btnChars[6], btnReverse[6] ? 'S' : 'K');
-        Debug.LogFormat("[Binary Tree #{0}] Module activated.", _moduleId);
+
+        for (int i = 0; i < 7; i++)
+        {
+            int j = i;
+            NodeBtns[i].OnInteract += delegate ()
+            {
+                nodeBtnPress(j);
+                return false;
+            };
+        }
     }
 
     void OnLightChange(bool isOn)
@@ -104,36 +93,36 @@ public class btScript : MonoBehaviour {
 
     void setTextColors(bool hidden)
     {
-        if(hidden)
+        if (hidden)
         {
             for (int i = 0; i < 7; i++)
-                nodeBtnText[i].color = Color.black;
+                NodeBtnText[i].color = Color.black;
         }
         else
         {
             for (int i = 0; i < 7; i++)
-                nodeBtnText[i].color = btnReverse[i] ? new Color(0.6f, 0.6f, 0.6f) : Color.black;
+                NodeBtnText[i].color = btnReverse[i] ? new Color(0.6f, 0.6f, 0.6f) : Color.black;
         }
     }
 
     void initPuzzle()
     {
-        for(int i = 0; i < 7; i++)
+        for (int i = 0; i < 7; i++)
         {
             btnOrders[i] = Random.Range(0, 8);
-            nodeBtns[i].GetComponent<MeshRenderer>().material.color = orderColors[btnOrders[i]];
+            NodeBtns[i].GetComponent<MeshRenderer>().material.color = orderColors[btnOrders[i]];
             btnReverse[i] = Random.Range(0, 2) != 0 ? true : false;
-            nodeBtnText[i].color = btnReverse[i] ? new Color(0.6f, 0.6f, 0.6f) : Color.black;
+            NodeBtnText[i].color = btnReverse[i] ? new Color(0.6f, 0.6f, 0.6f) : Color.black;
             btnChars[i] = numToChar(Random.Range(0, 36));
-            nodeBtnText[i].text = btnChars[i].ToString();
+            NodeBtnText[i].text = btnChars[i].ToString();
         }
         stage = 1;
     }
 
     void initDisplays()
     {
-        for(int i = 0; i < 4; i++)
-            scrnDisplays[i].text = "";
+        for (int i = 0; i < 4; i++)
+            ScreenDisplays[i].text = "";
     }
 
     #endregion
@@ -142,9 +131,9 @@ public class btScript : MonoBehaviour {
 
     void nodeBtnPress(int num)
     {
-        audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, nodeBtns[num].transform);
-        nodeBtns[num].AddInteractionPunch();
-        if(_lightsOn && !_isSolved && !_isStrike)
+        Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, NodeBtns[num].transform);
+        NodeBtns[num].AddInteractionPunch();
+        if (_lightsOn && !_isSolved && !_isStrike)
         {
             Debug.LogFormat("[Binary Tree #{0}] Pressed button: {1} {2}! Checking answer...", _moduleId, orderColorNames[btnOrders[num]], btnChars[num]);
             int refBtnInd, op;
@@ -158,7 +147,7 @@ public class btScript : MonoBehaviour {
                 refBtnInd = prevCorrectInd;
                 op = stage == 2 ? orderStage2Mappings[btnOrders[refBtnInd]] : orderStage3Mappings[btnOrders[refBtnInd]];
             }
-            
+
             int index = (charToNum(btnChars[refBtnInd]) + 6) % 7;
             Debug.LogFormat("[Binary Tree #{0}] Reference button is {1} {2}({3}).", _moduleId, orderColorNames[btnOrders[refBtnInd]], btnChars[refBtnInd], charToNum(btnChars[refBtnInd]));
             if (btnReverse[refBtnInd])
@@ -174,7 +163,7 @@ public class btScript : MonoBehaviour {
                     {
                         correctInd = preOrder[index];
                         Debug.LogFormat("[Binary Tree #{0}] Correct order is preorder.", _moduleId);
-                        Debug.LogFormat("[Binary Tree #{0}] Preorder sequence: {1}{2}{3}{4}{5}{6}{7}.", _moduleId, 
+                        Debug.LogFormat("[Binary Tree #{0}] Preorder sequence: {1}{2}{3}{4}{5}{6}{7}.", _moduleId,
                             btnChars[preOrder[0]],
                             btnChars[preOrder[1]],
                             btnChars[preOrder[2]],
@@ -289,21 +278,22 @@ public class btScript : MonoBehaviour {
                         break;
                     }
             }
-            Debug.LogFormat("[Binary Tree #{0}] Correct index is #{1}, expected button is {2} {3}.", _moduleId, btnReverse[refBtnInd] ? (7-index) : index + 1, orderColorNames[btnOrders[correctInd]], btnChars[correctInd]);
+            Debug.LogFormat("[Binary Tree #{0}] Correct index is #{1}, expected button is {2} {3}.", _moduleId, btnReverse[refBtnInd] ? (7 - index) : index + 1, orderColorNames[btnOrders[correctInd]], btnChars[correctInd]);
 
             if (correctInd == num)
             {
-                scrnDisplays[stage-1].text = btnChars[correctInd].ToString();
-                scrnDisplays[stage - 1].color = orderColors[btnOrders[correctInd]];
+                ScreenDisplays[stage - 1].text = btnChars[correctInd].ToString();
+                ScreenDisplays[stage - 1].color = orderColors[btnOrders[correctInd]];
                 prevCorrectInd = correctInd;
                 stage++;
-                if(stage > 3)
+                if (stage > 3)
                 {
                     Debug.LogFormat("[Binary Tree #{0}] PASSED!", _moduleId);
-                    audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.CorrectChime, module.transform);
-                    module.HandlePass();
-                    scrnDisplays[3].text = "✓";
-                    scrnDisplays[3].color = Color.green;
+                    Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.CorrectChime, Module.transform);
+                    Module.HandlePass();
+                    _isSolved = true;
+                    ScreenDisplays[3].text = "✓";
+                    ScreenDisplays[3].color = Color.green;
                     return;
                 }
                 Debug.LogFormat("[Binary Tree #{0}] Correct! Current stage: {1}", _moduleId, stage);
@@ -311,9 +301,9 @@ public class btScript : MonoBehaviour {
             else
             {
                 Debug.LogFormat("[Binary Tree #{0}] STRIKE! Incorrect!", _moduleId);
-                module.HandleStrike();
-                scrnDisplays[3].text = "✗";
-                scrnDisplays[3].color = Color.red;
+                Module.HandleStrike();
+                ScreenDisplays[3].text = "✗";
+                ScreenDisplays[3].color = Color.red;
                 _isStrike = true;
                 strikeMarkTime = Time.time;
             }
@@ -328,21 +318,33 @@ public class btScript : MonoBehaviour {
 
     char numToChar(int n)
     {
-        if (n < 10) return (char)(n + '0');
-        else return (char)(n - 10 + 'A');
+        if (n < 10) return (char) (n + '0');
+        else return (char) (n - 10 + 'A');
     }
 
     #endregion
 
     private void Update()
     {
-        if(_isStrike)
+        if (_isStrike)
         {
-            if(Time.time - strikeMarkTime > 0.5f)
+            if (Time.time - strikeMarkTime > 0.5f)
             {
-                scrnDisplays[3].text = "";
+                ScreenDisplays[3].text = "";
                 _isStrike = false;
             }
         }
+    }
+
+#pragma warning disable 414
+    private readonly string TwitchHelpMessage = @"Press a button with “!{0} press 1”, where the buttons are numbered 1–7 in reading order.";
+#pragma warning restore 414
+
+    KMSelectable[] ProcessTwitchCommand(string command)
+    {
+        var m = Regex.Match(command, @"^\s*press\s+([1-7])\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+        if (!m.Success)
+            return null;
+        return new[] { NodeBtns[int.Parse(m.Groups[1].Value) - 1] };
     }
 }
