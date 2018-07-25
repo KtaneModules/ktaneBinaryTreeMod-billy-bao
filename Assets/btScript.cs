@@ -54,7 +54,7 @@ public class btScript : MonoBehaviour
         initPuzzle();
         initDisplays();
         _lightsOn = true;
-		setTextColors(true);
+        setTextColors(false);
         Module.GetComponent<KMGameInfo>().OnLightsChange += OnLightChange;
         Debug.LogFormat("[Binary Tree #{0}] Tree Structure:\n" +
             "(Key: (Button Color, Char, Text Color), colors are Red, Green, Blue, Magenta, Cyan, Yellow, Orange, grAy, Silver, blacK.)\n" +
@@ -112,7 +112,7 @@ public class btScript : MonoBehaviour
             btnOrders[i] = Random.Range(0, 8);
             NodeBtns[i].GetComponent<MeshRenderer>().material.color = orderColors[btnOrders[i]];
             btnReverse[i] = Random.Range(0, 2) != 0 ? true : false;
-			NodeBtnText[i].color = btnReverse[i] ? new Color(0.6f, 0.6f, 0.6f) : Color.black;
+            NodeBtnText[i].color = btnReverse[i] ? new Color(0.6f, 0.6f, 0.6f) : Color.black;
             btnChars[i] = numToChar(Random.Range(0, 36));
             NodeBtnText[i].text = btnChars[i].ToString();
         }
@@ -313,7 +313,7 @@ public class btScript : MonoBehaviour
     int charToNum(char c)
     {
         if (c >= '0' && c <= '9') return c - '0';
-        else return c - 'A' + 3;
+        else return c - 'A' + 10;
     }
 
     char numToChar(int n)
