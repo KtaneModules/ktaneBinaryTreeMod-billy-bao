@@ -8,6 +8,36 @@
 	<link href='https://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="ruleseed.js"></script>
+    <script>
+        var rules = [];
+
+        function setRules(rnd)
+        {
+			var letterAddNum = rnd.nextMax(7);
+			var numRule = document.getElementsByClassName('numrule');
+			numRule[0].innerHTML = "<strong><u>position of that character in the alphabet + " + letterAddNum + "</u></strong>";
+            var candidates = [ "Preorder", "Inorder", "Postorder", "Level Order", "Right-to-Left Preorder", "Right-to-Left Inorder", "Right-to-Left Postorder", "Right-to-Left Level Order" ];
+            var lookupTable = [rnd.shuffleArray(candidates), rnd.shuffleArray(candidates), rnd.shuffleArray(candidates)];
+			var rows = document.getElementsByClassName('rule-row');
+            for (var i = 0; i < 8; i++)
+            {
+                var tds = rows[i].getElementsByClassName('rule');
+                for (var j = 0; j < tds.length; j++)
+                    tds[j].innerText = lookupTable[j][i];
+            }
+        }
+
+        function setDefaultRules()
+        {
+            var list = document.getElementsByClassName('rule');
+            for (var i = 0; i < list.length; i++)
+                list[i].innerText = list[i].getAttribute('data-original');
+			var numRule = document.getElementsByClassName('numrule');
+			numRule[0].innerHTML = "position of that character in the alphabet + 2";
+        }
+    </script>
+
 </head>
 <body>
 <div class="section">
@@ -30,7 +60,7 @@
 					For the first stage, use the root of the tree as the reference node.
 					For each subsequent stage, use the correct node pressed in the previous stage as the reference node.</li>
 				<li>To find which node to press, first turn the character printed on the reference node into a number.
-					If it is a numeric character, use that number, otherwise use the position of that character in the alphabet + 2.</li>
+					If it is a numeric character, use that number, otherwise use the <span class="numrule">position of that character in the alphabet + 2</span>.</li>
 				<li>If the resulting number is greater than 7, subtract 7 repeatedly until it is within the range 1~7. If the number is 0, use 7.
 					Call this number <strong>N</strong>.</li>
 				<li>Use the table on the next page to determine an ordering of the nodes from the current stage number and the color of the reference node.</li>
@@ -58,54 +88,54 @@
 					<th>Stage&nbsp;2</th>
 					<th>Stage&nbsp;3</th>
 				</tr>
-				<tr>
+				<tr class="rule-row">
 					<th rowspan="8">Ref Node Color:</th>
 					<th>Red</th>
-					<td>Preorder</td>
-					<td>Right-to-Left<br>Inorder</td>
-					<td>Right-to-Left<br>Level Order</td>
+					<td class="rule" data-original="Preorder">Preorder</td>
+					<td class="rule" data-original="Right-to-Left Inorder">Right-to-Left<br>Inorder</td>
+					<td class="rule" data-original="Right-to-Left Level Order">Right-to-Left<br>Level Order</td>
 				</tr>
-				<tr>
+				<tr class="rule-row">
 					<th>Green</th>
-					<td>Inorder</td>
-					<td>Right-to-Left<br>Postorder</td>
-					<td>Inorder</td>
+					<td class="rule" data-original="Inorder">Inorder</td>
+					<td class="rule" data-original="Right-to-Left Postorder">Right-to-Left<br>Postorder</td>
+					<td class="rule" data-original="Inorder">Inorder</td>
 				</tr>
-				<tr>
+				<tr class="rule-row">
 					<th>Blue</th>
-					<td>Postorder</td>
-					<td>Right-to-Left<br>Preorder</td>
-					<td>Right-to-Left<br>Inorder</td>
+					<td class="rule" data-original="Postorder">Postorder</td>
+					<td class="rule" data-original="Right-to-Left Preorder">Right-to-Left<br>Preorder</td>
+					<td class="rule" data-original="Right-to-Left Inorder">Right-to-Left<br>Inorder</td>
 				</tr>
-				<tr>
+				<tr class="rule-row">
 					<th>Orange</th>
-					<td>Level Order</td>
-					<td>Level Order</td>
-					<td>Preorder</td>
+					<td class="rule" data-original="Level Order">Level Order</td>
+					<td class="rule" data-original="Level Order">Level Order</td>
+					<td class="rule" data-original="Preorder">Preorder</td>
 				</tr>
-				<tr>
+				<tr class="rule-row">
 					<th>Cyan</th>
-					<td>Right-to-Left<br>Preorder</td>
-					<td>Preorder</td>
-					<td>Level Order</td>
+					<td class="rule" data-original="Right-to-Left Preorder">Right-to-Left<br>Preorder</td>
+					<td class="rule" data-original="Preorder">Preorder</td>
+					<td class="rule" data-original="Level Order">Level Order</td>
 				</tr>
-				<tr>
+				<tr class="rule-row">
 					<th>Magenta</th>
-					<td>Right-to-Left<br>Inorder</td>
-					<td>Inorder</td>
-					<td>Right-to-Left<br>Postorder</td>
+					<td class="rule" data-original="Right-to-Left Inorder">Right-to-Left<br>Inorder</td>
+					<td class="rule" data-original="Inorder">Inorder</td>
+					<td class="rule" data-original="Right-to-Left Postorder">Right-to-Left<br>Postorder</td>
 				</tr>
-				<tr>
+				<tr class="rule-row">
 					<th>Yellow</th>
-					<td>Right-to-Left<br>Postorder</td>
-					<td>Right-to-Left<br>Level Order</td>
-					<td>Postorder</td>
+					<td class="rule" data-original="Right-to-Left Postorder">Right-to-Left<br>Postorder</td>
+					<td class="rule" data-original="Right-to-Left Level Order">Right-to-Left<br>Level Order</td>
+					<td class="rule" data-original="Postorder">Postorder</td>
 				</tr>
-				<tr>
+				<tr class="rule-row">
 					<th>Gray</th>
-					<td>Right-to-Left<br>Level Order</td>
-					<td>Postorder</td>
-					<td>Right-to-Left<br>Preorder</td>
+					<td class="rule" data-original="Right-to-Left Level Order">Right-to-Left<br>Level Order</td>
+					<td class="rule" data-original="Postorder">Postorder</td>
+					<td class="rule" data-original="Right-to-Left Preorder">Right-to-Left<br>Preorder</td>
 				</tr>
 			</table>
         </div>
