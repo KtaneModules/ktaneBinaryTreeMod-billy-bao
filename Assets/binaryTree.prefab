@@ -1266,7 +1266,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ac9ea0780ebdc504aa71e9e39495a648, type: 2}
+  - {fileID: 2100000, guid: 4dbcf19b50d74ff4f9e81cc97ffe1db9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1436,7 +1436,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ac9ea0780ebdc504aa71e9e39495a648, type: 2}
+  - {fileID: 2100000, guid: 4dbcf19b50d74ff4f9e81cc97ffe1db9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1606,7 +1606,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ac9ea0780ebdc504aa71e9e39495a648, type: 2}
+  - {fileID: 2100000, guid: 4dbcf19b50d74ff4f9e81cc97ffe1db9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1912,7 +1912,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ac9ea0780ebdc504aa71e9e39495a648, type: 2}
+  - {fileID: 2100000, guid: 4dbcf19b50d74ff4f9e81cc97ffe1db9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2718,7 +2718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShaderNames:
-  - GUI/KT 3D Text
+  - GUI/KT 3D Text Diffuse
 --- !u!114 &114047761353589192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2984,7 +2984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShaderNames:
-  - GUI/KT 3D Text
+  - GUI/KT 3D Text Diffuse
 --- !u!114 &114459128189757736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3010,7 +3010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShaderNames:
-  - GUI/KT 3D Text
+  - GUI/KT 3D Text Diffuse
 --- !u!114 &114468871873956080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3049,7 +3049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShaderNames:
-  - GUI/KT 3D Text
+  - GUI/KT 3D Text Diffuse
 --- !u!114 &114518969118416608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3122,7 +3122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShaderNames:
-  - GUI/KT 3D Text
+  - GUI/KT 3D Text Diffuse
 --- !u!114 &114577238251775524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3196,7 +3196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShaderNames:
-  - GUI/KT 3D Text
+  - GUI/KT 3D Text Diffuse
 --- !u!114 &114680439896743350
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3292,7 +3292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShaderNames:
-  - GUI/KT 3D Text
+  - GUI/KT 3D Text Diffusse
 --- !u!114 &114803172297105642
 MonoBehaviour:
   m_ObjectHideFlags: 1
