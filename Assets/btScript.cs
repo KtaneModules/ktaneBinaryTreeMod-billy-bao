@@ -54,7 +54,7 @@ public class btScript : MonoBehaviour
         initPuzzle();
         initDisplays();
         _lightsOn = true;
-		setTextColors(true);
+		setTextColors(false);
         Module.GetComponent<KMGameInfo>().OnLightsChange += OnLightChange;
         Debug.LogFormat("[Binary Tree #{0}] Tree Structure:\n" +
             "(Key: (Button Color, Char, Text Color), colors are Red, Green, Blue, Magenta, Cyan, Yellow, Orange, grAy, Silver, blacK.)\n" +
@@ -89,7 +89,7 @@ public class btScript : MonoBehaviour
 
     void OnLightChange(bool isOn)
     {
-        setTextColors(!isOn);
+        //setTextColors(!isOn);
     }
 
     void setTextColors(bool hidden)
@@ -108,14 +108,22 @@ public class btScript : MonoBehaviour
 
     void initPuzzle()
     {
+        bool allBlack = true;
         for (int i = 0; i < 7; i++)
         {
             btnOrders[i] = Random.Range(0, 8);
             NodeBtns[i].GetComponent<MeshRenderer>().material.color = orderColors[btnOrders[i]];
             btnReverse[i] = Random.Range(0, 2) != 0 ? true : false;
 			NodeBtnText[i].color = btnReverse[i] ? new Color(0.6f, 0.6f, 0.6f) : Color.black;
+            if (btnReverse[i]) allBlack = false;
             btnChars[i] = numToChar(Random.Range(0, 36));
             NodeBtnText[i].text = btnChars[i].ToString();
+        }
+        if(allBlack)
+        {
+            int randSilv = Random.Range(0, 8);
+            btnReverse[randSilv] = true;
+            NodeBtnText[randSilv].color = new Color(0.6f, 0.6f, 0.6f);
         }
 		curStage = 1;
     }
