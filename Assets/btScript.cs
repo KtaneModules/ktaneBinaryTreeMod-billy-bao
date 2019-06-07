@@ -19,7 +19,7 @@ public class btScript : MonoBehaviour
 
     private static int _moduleIdCounter = 1;
     private int _moduleId = 0;
-    private bool _isSolved = false, _lightsOn = false, _isStrike = false;
+    private bool _isSolved = false, _lightsOn = false, _isStrike = false, _isBug = false;
     private float strikeMarkTime = 0f;
 
     private static readonly int[] preOrder = { 0, 1, 3, 4, 2, 5, 6 };
@@ -51,11 +51,12 @@ public class btScript : MonoBehaviour
     void Start()
     {
         _moduleId = _moduleIdCounter++;
+        Debug.LogFormat("[Binary Tree #{0}] Initializing tree...", _moduleId);
+
         initPuzzle();
         initDisplays();
         _lightsOn = true;
-		setTextColors(false);
-        Module.GetComponent<KMGameInfo>().OnLightsChange += OnLightChange;
+        setTextColors(false);
         Debug.LogFormat("[Binary Tree #{0}] Tree Structure:\n" +
             "(Key: (Button Color, Char, Text Color), colors are Red, Green, Blue, Magenta, Cyan, Yellow, Orange, grAy, Silver, blacK.)\n" +
             "              ({1}, {2}, {3})\n" +
@@ -74,7 +75,7 @@ public class btScript : MonoBehaviour
             orderColorChars[btnOrders[4]], btnChars[4], btnReverse[4] ? 'S' : 'K',
             orderColorChars[btnOrders[5]], btnChars[5], btnReverse[5] ? 'S' : 'K',
             orderColorChars[btnOrders[6]], btnChars[6], btnReverse[6] ? 'S' : 'K');
-		calcAnswers();
+        calcAnswers();
 
         for (int i = 0; i < 7; i++)
         {
@@ -85,11 +86,6 @@ public class btScript : MonoBehaviour
                 return false;
             };
         }
-    }
-
-    void OnLightChange(bool isOn)
-    {
-        //setTextColors(!isOn);
     }
 
     void setTextColors(bool hidden)
@@ -121,7 +117,7 @@ public class btScript : MonoBehaviour
         }
         if(allBlack)
         {
-            int randSilv = Random.Range(0, 8);
+            int randSilv = Random.Range(0, 7);
             btnReverse[randSilv] = true;
             NodeBtnText[randSilv].color = new Color(0.6f, 0.6f, 0.6f);
         }
@@ -142,6 +138,7 @@ public class btScript : MonoBehaviour
     {
         Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, NodeBtns[num].transform);
         NodeBtns[num].AddInteractionPunch();
+        if (_isBug) { Module.HandlePass(); return; }
         if (_lightsOn && !_isSolved && !_isStrike)
         {
             Debug.LogFormat("[Binary Tree #{0}] Pressed button: {1} {2}!", _moduleId, orderColorNames[btnOrders[num]], btnChars[num]);
