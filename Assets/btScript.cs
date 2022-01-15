@@ -113,6 +113,7 @@ public class btScript : MonoBehaviour
 			NodeBtnText[i].color = btnReverse[i] ? new Color(0.6f, 0.6f, 0.6f) : Color.black;
             if (btnReverse[i]) allBlack = false;
             btnChars[i] = numToChar(Random.Range(0, 36));
+			if (btnChars[i] == 'O') btnChars[i] = '0';
             NodeBtnText[i].text = btnChars[i].ToString();
         }
         if(allBlack)
